@@ -1,8 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Npgsql;
 
-namespace IncidentSphere.StreamService
-.Shared.Utilities;
+namespace IncidentSphere.StreamService.Shared.Utilities;
 
 public static class ExceptionHelper
 {

@@ -16,6 +16,13 @@ namespace IncidentSphere.StreamService.Data.Configurations
                 .HasMaxLength(200)
                 .IsRequired();
 
+            entity.Property(x => x.StreamCode)
+               .HasMaxLength(20)
+               .IsRequired();
+
+            entity.HasIndex(x =>new { x.TenantId, x.StreamCode })
+           .IsUnique();
+
             entity.HasIndex(x => x.TenantId);
 
             entity.HasIndex(x => x.IncidentId);

@@ -7,7 +7,7 @@ namespace IncidentSphere.StreamService.Models
 
         public Guid IncidentId { get; set; }
         public string Title { get; set; } = string.Empty;
-
+        public string StreamCode { get; set; } = string.Empty;
         public StreamStatus Status { get; set; }
 
         public DateTime? ScheduledAt { get; set; }
