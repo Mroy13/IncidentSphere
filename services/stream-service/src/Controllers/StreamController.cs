@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 [Route("api/stream")]
 public class StreamController : ControllerBase
 {
+
+
     private readonly IStreamService _streamService;
 
     public StreamController(IStreamService streamService)
@@ -14,8 +16,10 @@ public class StreamController : ControllerBase
         _streamService = streamService;
     }
 
+
+    //create the interactive stream for the incident(manual)
     [HttpPost("create")]
-    public async Task<IActionResult> Create(
+    public async Task<ActionResult<ApiResponse<CreateStreamResponse>>> Create(
         CreateStreamRequest request,
         CancellationToken cancellationToken)
     {
@@ -30,8 +34,10 @@ public class StreamController : ControllerBase
                 "Stream created"));
     }
 
+
+    //join the interactive stream for the incident
     [HttpPost("join")]
-    public async Task<IActionResult> Join(
+    public async Task<ActionResult<ApiResponse<JoinRoomResponse>>> Join(
         JoinRoomRequest request,
         CancellationToken cancellationToken)
     {
@@ -39,22 +45,19 @@ public class StreamController : ControllerBase
             request,
             cancellationToken);
 
-        return StatusCode(
-            StatusCodes.Status200OK,
-            ApiResponse<JoinRoomResponse>.SuccessResponse(
+        return Ok(ApiResponse<JoinRoomResponse>.SuccessResponse(
                 result,
                 "Joined room"));
     }
 
+
+    // stop the active interactive stream
     [HttpPost("end")]
-    public async Task<IActionResult> EndStream(
-    [FromBody] EndStreamRequest request)
+    public async Task<ActionResult<ApiResponse<string>>> EndStream(EndStreamRequest request)
     {
         await _streamService.EndStreamAsync(request.StreamId);
 
-        return StatusCode(
-            StatusCodes.Status200OK,
-            ApiResponse<string>.SuccessResponse(
+        return Ok(ApiResponse<string>.SuccessResponse(
                 string.Empty,
                 "Stream ended successfully."));
     }

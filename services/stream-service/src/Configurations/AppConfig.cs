@@ -9,6 +9,7 @@ public class AppConfig
 public class LiveKitConfig
 {
     public string Url { get; init; } = string.Empty;
+    public string RtcUrl { get; init; } = string.Empty;
 
     public string ApiKey { get; init; } = string.Empty;
 

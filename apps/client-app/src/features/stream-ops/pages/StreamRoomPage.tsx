@@ -192,12 +192,12 @@ export function StreamRoomPage() {
                   <dt className="text-slate-500">Room name</dt>
                   <dd className="font-mono text-white">{room.roomName}</dd>
                 </div>
-                <div>
+                {/* <div>
                   <dt className="text-slate-500">Media server</dt>
                   <dd className="break-all font-mono text-xs text-slate-300">
                     {room.liveKitUrl}
                   </dd>
-                </div>
+                </div> */}
               </dl>
             </Card>
           )}

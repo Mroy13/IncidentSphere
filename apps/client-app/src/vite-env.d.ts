@@ -2,7 +2,7 @@
 
 interface ImportMetaEnv {
   readonly VITE_STREAM_API_URL: string;
-  readonly VITE_LIVEKIT_URL: string;
+  // readonly VITE_LIVEKIT_URL: string;
 }
 
 interface ImportMeta {

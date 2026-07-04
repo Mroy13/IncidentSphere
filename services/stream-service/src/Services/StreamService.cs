@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using IncidentSphere.StreamService.Configurations;
 using IncidentSphere.StreamService.Dtos;
 using IncidentSphere.StreamService.Models;
 using IncidentSphere.StreamService.Repositories.Interfaces;
@@ -7,6 +8,7 @@ using IncidentSphere.StreamService.Services.LiveKit;
 using IncidentSphere.StreamService.Shared.Extensions;
 using IncidentSphere.StreamService.Shared.Stores;
 using IncidentSphere.StreamService.Shared.Utilities;
+using Microsoft.Extensions.Options;
 
 
 public class StreamService : IStreamService
@@ -19,6 +21,7 @@ public class StreamService : IStreamService
     private readonly ILiveKitService _liveKitService;
     private readonly IIncidentMemoryStore _incidentStore;
     private readonly IHttpContextAccessor _httpContextAccessor;
+    private readonly AppConfig _config;
 
     public StreamService(
         IRepository<VideoStream> streamRepository,
@@ -28,7 +31,9 @@ public class StreamService : IStreamService
         ILiveKitService liveKitService,
         IIncidentMemoryStore incidentStore,
         IHttpContextAccessor httpContextAccessor,
-        IValidator<JoinRoomRequest> joinRoomValidator)
+        IValidator<JoinRoomRequest> joinRoomValidator,
+        IOptions<AppConfig> config
+        )
     {
         _streamRepository = streamRepository;
         _roomRepository = roomRepository;
@@ -38,7 +43,10 @@ public class StreamService : IStreamService
         _incidentStore = incidentStore;
         _httpContextAccessor = httpContextAccessor;
         _joinRoomValidator = joinRoomValidator;
+        _config = config.Value;
     }
+
+
 
     public async Task<CreateStreamResponse> CreateStreamAsync(
       CreateStreamRequest request,
@@ -86,6 +94,7 @@ public class StreamService : IStreamService
             StreamCode = stream.StreamCode
         };
     }
+
 
     public async Task<JoinRoomResponse> JoinRoomAsync(
     JoinRoomRequest request,
@@ -140,6 +149,7 @@ public class StreamService : IStreamService
         var user = _httpContextAccessor.HttpContext!
             .GetCurrentUser();
 
+        //create livekit token for the user to join the room
         var token = _liveKitService.GenerateToken(
             room.RoomName,
             user.UserId.ToString(),
@@ -149,9 +159,10 @@ public class StreamService : IStreamService
         {
             RoomName = room.RoomName,
             Token = token,
-            LiveKitUrl = "ws://YOUR_EC2_IP:7880"
+            LiveKitUrl = _config.LiveKit.RtcUrl
         };
     }
+
 
     public async Task EndStreamAsync(Guid streamId)
     {
@@ -164,6 +175,7 @@ public class StreamService : IStreamService
         {
             var room = await _roomRepository.GetByIdAsync(stream.ActiveRoomId.Value);
 
+            //delete the active livekit room and update the room status to ended
             if (room != null)
             {
                 await _liveKitService.DeleteRoomAsync(room.RoomName);
@@ -182,4 +194,7 @@ public class StreamService : IStreamService
 
         await _streamRepository.SaveChangesAsync();
     }
+
+
+
 }
