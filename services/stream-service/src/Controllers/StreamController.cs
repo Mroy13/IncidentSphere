@@ -4,7 +4,7 @@ using IncidentSphere.StreamService.Shared.Utilities;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
-[Route("api/stream")]
+[Route("api/streams")]
 public class StreamController : ControllerBase
 {
 

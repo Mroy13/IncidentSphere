@@ -5,19 +5,13 @@ namespace IncidentSphere.StreamService.Shared.Utilities;
 
 public static class ExceptionHelper
 {
-    public static AppException
-        Handle(Exception exception)
+    public static AppException Handle(Exception exception)
     {
-        if (exception
-            is DbUpdateException
-            dbException)
+        if (exception is DbUpdateException dbException)
         {
-            var postgresException =
-                dbException.InnerException
-                    as PostgresException;
+            var postgresException = dbException.InnerException as PostgresException;
 
-            if (postgresException
-                is not null)
+            if (postgresException is not null)
             {
                 return postgresException
                     .SqlState switch

@@ -1,6 +1,7 @@
 ﻿using IncidentSphere.StreamService.Data;
 using IncidentSphere.StreamService.Models;
 using IncidentSphere.StreamService.Repositories.Interfaces;
+using IncidentSphere.StreamService.Shared.Utilities;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
@@ -49,13 +50,27 @@ public class Repository<T> : IRepository<T> where T : BaseEntity
         return await _dbSet.AnyAsync(predicate, cancellationToken);
     }
 
+
+    // Returns a queryable source for composing database queries without executing them.
     public IQueryable<T> Query()
     {
         return _dbSet.AsQueryable();
     }
 
+
+    // Persists tracked entity changes to the database and maps database-specific exceptions
+    // to application exceptions for consistent API error responses.
     public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
-        return await _appDbContext.SaveChangesAsync(cancellationToken);
+        try
+        {
+            return await _appDbContext.SaveChangesAsync(cancellationToken);
+        }
+        catch (DbUpdateException ex)
+        {
+            throw ExceptionHelper.Handle(ex);
+        }
     }
+
+
 }

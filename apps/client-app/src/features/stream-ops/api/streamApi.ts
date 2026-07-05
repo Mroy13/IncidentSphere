@@ -12,7 +12,7 @@ import { getApiBaseUrl } from '@/shared/config/env';
 export const streamApi = createApi({
   reducerPath: 'streamApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: `${getApiBaseUrl()}/api/stream`,
+    baseUrl: `${getApiBaseUrl()}/api/streams`,
     prepareHeaders: (headers) => {
       headers.set('Content-Type', 'application/json');
       return headers;
