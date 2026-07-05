@@ -1,8 +1,8 @@
 ﻿# IncidentSphere  
 ### Real-time Incident Management, Coordination & Collaboration Platform
 
-IncidentSphere is a distributed system designed to manage, coordinate, and resolve operational incidents in real time.  
-It provides a unified environment where teams can collaborate, communicate, and debug issues using live streaming and real-time coordination tools.
+IncidentSphere is a distributed platform designed to manage, coordinate, and resolve operational incidents in real time. It unifies incident management with **StreamOps**, enabling teams to collaborate in secure real-time war rooms using live video, audio, screen sharing, and contextual collaboration to accelerate incident resolution.
+
 
 The system is built around the idea of a **360° incident response ecosystem**, combining incident lifecycle management with real-time communication and interactive streaming.
 
