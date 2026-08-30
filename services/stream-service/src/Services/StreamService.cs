@@ -3,12 +3,13 @@ using IncidentSphere.StreamService.Configurations;
 using IncidentSphere.StreamService.Dtos;
 using IncidentSphere.StreamService.Models;
 using IncidentSphere.StreamService.Repositories.Interfaces;
-using IncidentSphere.StreamService.Services;
 using IncidentSphere.StreamService.Services.LiveKit;
 using IncidentSphere.StreamService.Shared.Extensions;
 using IncidentSphere.StreamService.Shared.Stores;
 using IncidentSphere.StreamService.Shared.Utilities;
 using Microsoft.Extensions.Options;
+
+namespace IncidentSphere.StreamService.Services;
 
 
 public class StreamService : IStreamService
