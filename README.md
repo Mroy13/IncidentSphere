@@ -110,7 +110,7 @@ Core StreamOps module is implemented, with full incident lifecycle and collabora
 # Tech Stack
 
 ## Backend
-- ASP.NET Core 8
+- ASP.NET Core 10
 - Entity Framework Core
 - PostgreSQL
 
