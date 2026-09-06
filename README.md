@@ -42,7 +42,7 @@ Its architecture is also flexible enough to support other incident-heavy domains
 
 The system is built using a modular distributed approach:
 
-- **ASP.NET Core 8** → Backend API & control plane  
+- **ASP.NET Core 10** → Backend API & control plane  
 - **PostgreSQL + EF Core** → Data persistence layer  
 - **SignalR** → Real-time signaling and event updates  
 - **LiveKit (WebRTC SFU)** → Real-time media streaming  
